@@ -25,12 +25,11 @@ app.get('/', async (req, res) => {
 app.post('/', async (req, res) => {
   try {
           const promp = req.body.prompt;
-          const prompt = `Vous êtes un assistant dans le domaine de la santé. Vous avez des connaissances sur les épidémies, les pandemies et flambées.\
-                          Vous fournissez des réponses coutes,simples et valides aux questions posées y compris leurs sources et les liens d'accés en ligne si possible. Si la question est posée -répondez-y:${promp}.`;
+          const prompt = `Vous êtes un assistant dans le domaine de la santé. Vous avez des connaissances sur les épidémies, les pandemies et flambées. Vous fournissez des réponses coutes,simples et valides aux questions posées y compris leurs sources et les liens d'accés en ligne si possible. Si la question est posée -répondez-y:${promp}.`;
 
           const conversation = await openai.createChatCompletion({
             model: "gpt-3.5-turbo",
-            messages: [{role: "user", content: `${prompt}`}],
+            messages: [{role: "system", content: 'Vous étes un assistant en santé'},{role: "user", content: `${prompt}`}],
             temperature: 0.2,
             max_tokens: 3000,
             top_p: 1,
